@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <h2>Your Shopping Cart</h2>
+        <a href="register.html">
+            <button>Register Before Order</button>
+        </a>
+    </header>
+
+    <div class="container">
+
+        <table border="1" width="60%" cellpadding="10">
+
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+
+            <tbody id="cartTable"></tbody>
+
+        </table>
+
+        <h3 id="total"></h3>
+
+        <br>
+
+        <a href="checkout.html">
+            <button>Place Order</button>
+        </a>
+
+    </div>
+
+    <script src="js/cart.js"></script>
+
+    <script>
+
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        let table = document.getElementById("cartTable");
+
+        let total = 0;
+
+        cart.forEach(function (item, index) {
+
+            total += item.price;
+
+            table.innerHTML += `
+<tr>
+<td>${item.name}</td>
+<td>$${item.price}</td>
+<td>
+<button onclick="removeItem(${index})">Remove</button>
+</td>
+</tr>
+`;
+
+        });
+
+        document.getElementById("total").innerText = "Total: $" + total;
+
+    </script>
+
+</body>
+
+</html>
